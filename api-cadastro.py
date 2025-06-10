@@ -65,7 +65,7 @@ def login():
     conn.close()
     
     if res and check_password_hash(res[0], senha):
-        return jsonify({"Status": "OK", "Mensagem": "Login bem sucedido","nome": ros[0]})
+        return jsonify({"Status": "OK", "Mensagem": "Login bem sucedido","nome": res[0]})
     else:
         return jsonify({"Erro": "Login fracassado"}), 401
 
