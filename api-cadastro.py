@@ -47,8 +47,8 @@ def cadastra():
     except Exception as ex:
         return jsonify({"Erro": f"Erro ao cadastrar: {str(ex)}"}), 400
         
-    return jsonify({"Status": "OK", "Mensagem": "Dados cadastrados com sucesso!"})
-
+    return jsonify({"Status": "OK", "Mensagem": "Dados cadastrados com sucesso!","nome": nome})
+    
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -60,12 +60,12 @@ def login():
     
     conn = sqlite3.connect(banco)
     cursor = conn.cursor()
-    cursor.execute("SELECT senha FROM dados WHERE email = ?", (email,))
+    cursor.execute("SELECT nome,senha FROM dados WHERE email = ?", (email,))
     res = cursor.fetchone()
     conn.close()
     
     if res and check_password_hash(res[0], senha):
-        return jsonify({"Status": "OK", "Mensagem": "Login bem sucedido"})
+        return jsonify({"Status": "OK", "Mensagem": "Login bem sucedido","nome": ros[0]})
     else:
         return jsonify({"Erro": "Login fracassado"}), 401
 
