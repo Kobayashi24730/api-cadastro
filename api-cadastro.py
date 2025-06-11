@@ -64,7 +64,7 @@ def login():
     res = cursor.fetchone()
     conn.close()
     
-    if res and check_password_hash(res[0], senha):
+    if res and check_password_hash(res[1], senha):
         return jsonify({"Status": "OK", "Mensagem": "Login bem sucedido","nome": res[0]})
     else:
         return jsonify({"Erro": "Login fracassado"}), 401
